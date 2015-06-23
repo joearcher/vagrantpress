@@ -24,8 +24,14 @@ Vagrant.configure("2") do |config|
   
   # Fix for slow external network connections
   config.vm.provider :virtualbox do |vb|
-    vb.memory = 1024
+    vb.memory = 2048
     vb.customize ['modifyvm', :id, '--natdnshostresolver1', 'on']
     vb.customize ['modifyvm', :id, '--natdnsproxy1', 'on']
+  end
+
+  config.hostmanager.ip_resolver = proc do |vm, resolving_vm|
+      if hostname = (vm.ssh_info && vm.ssh_info[:host])
+        `vagrant ssh -c "hostname -I"`.split()[1]
+    end
   end
 end
