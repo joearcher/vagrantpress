@@ -29,15 +29,15 @@ class wordpress::install {
     creates => '/vagrant/wordpress',
   }
 
-  # Import a MySQL database for a basic wordpress site.
-  file { '/tmp/wordpress-db.sql':
-    source => 'puppet:///modules/wordpress/wordpress-db.sql'
-  }
+# Import a MySQL database for a basic wordpress site.
+# file { '/tmp/wordpress-db.sql':
+#   source => 'puppet:///modules/wordpress/wordpress-db.sql'
+# }
 
-  exec { 'load-db':
-    command => '/usr/bin/mysql -u wordpress -pwordpress wordpress < /tmp/wordpress-db.sql && touch /home/vagrant/db-created',
-    creates => '/home/vagrant/db-created',
-  }
+# exec { 'load-db':
+#   command => '/usr/bin/mysql -u wordpress -pwordpress wordpress < /tmp/wordpress-db.sql && touch /home/vagrant/db-created',
+#   creates => '/home/vagrant/db-created',
+# }
 
   # Copy a working wp-config.php file for the vagrant setup.
   file { '/vagrant/wordpress/wp-config.php':
