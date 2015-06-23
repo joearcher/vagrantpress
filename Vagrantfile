@@ -9,9 +9,10 @@ Vagrant.configure("2") do |config|
   config.vm.provision :shell, path: "files/scripts/setup.sh"
 
   # setup virtual hostname and provision local IP
-  config.vm.hostname = "vagrantpress.dev"
-  config.vm.network :private_network, :ip => "192.168.50.4"
-  config.hostsupdater.aliases = %w{www.vagrantpress.dev}
+  config.vm.hostname = "laserred.dev"
+  #config.vm.network :private_network, :ip => "192.168.50.4"
+  config.vm.network "public_network"
+  config.hostsupdater.aliases = %w{laserred.dev}
   config.hostsupdater.remove_on_suspend = true
 
   config.vm.provision :puppet do |puppet|
@@ -23,6 +24,7 @@ Vagrant.configure("2") do |config|
   
   # Fix for slow external network connections
   config.vm.provider :virtualbox do |vb|
+    vb.memory = 1024
     vb.customize ['modifyvm', :id, '--natdnshostresolver1', 'on']
     vb.customize ['modifyvm', :id, '--natdnsproxy1', 'on']
   end
