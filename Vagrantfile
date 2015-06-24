@@ -10,10 +10,7 @@ Vagrant.configure("2") do |config|
 
   # setup virtual hostname and provision local IP
   config.vm.hostname = "laserred.dev"
-  #config.vm.network :private_network, :ip => "192.168.50.4"
   config.vm.network "public_network"
-  #config.hostsupdater.aliases = %w{laserred.dev}
-  config.hostsupdater.remove_on_suspend = true
 
   config.vm.provision :puppet do |puppet|
     puppet.manifests_path = "puppet/manifests"
