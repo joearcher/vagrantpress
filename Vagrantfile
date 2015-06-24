@@ -12,7 +12,7 @@ Vagrant.configure("2") do |config|
   config.vm.hostname = "laserred.dev"
   #config.vm.network :private_network, :ip => "192.168.50.4"
   config.vm.network "public_network"
-  config.hostsupdater.aliases = %w{laserred.dev}
+  #config.hostsupdater.aliases = %w{laserred.dev}
   config.hostsupdater.remove_on_suspend = true
 
   config.vm.provision :puppet do |puppet|
@@ -29,9 +29,4 @@ Vagrant.configure("2") do |config|
     vb.customize ['modifyvm', :id, '--natdnsproxy1', 'on']
   end
 
-  config.hostmanager.ip_resolver = proc do |vm, resolving_vm|
-      if hostname = (vm.ssh_info && vm.ssh_info[:host])
-        `vagrant ssh -c "hostname -I"`.split()[1]
-    end
-  end
 end
